@@ -1,5 +1,5 @@
 import React from 'react'
-import { TbMovie } from "react-icons/tb";
+import { Film } from 'lucide-react';
 import { Mail } from 'lucide-react';
 import { Phone } from 'lucide-react';
 
@@ -8,7 +8,7 @@ export const Footer = () => {
   <div className="h-[280px] py-[40px] bg-[#4338CA] px-[80px] flex flex-row gap-[120px] text-[#FAFAFA] font-medium leading-5 text-[14px]">
     <div className='w-[247px]'>
         <div className="flex items-center gap-2 text-blue-900">
-                <TbMovie className="text-[#FAFAFA] size-5" />
+                <Film  className="text-[#FAFAFA] size-5" />
                 <p className="text-[#FAFAFA] text-4 font-bold leading-5">Movie Z</p>
               </div>
         <p className='text-[#FAFAFA] text-[14px] font-normal leading-5'>© 2024 Movie Z. All Rights Reserved </p>

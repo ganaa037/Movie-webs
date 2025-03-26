@@ -41,7 +41,7 @@ export const Movie = () => {
               <CarouselItem key={i} className=" relative">
                 <img
                   className=" w-full h-[600px] object-cover"
-                  src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                 ></img>
                 <div className="absolute top-[178px] left-[140px] text-[#FAFAFA] flex gap-4 flex-col ">
                   <div>
