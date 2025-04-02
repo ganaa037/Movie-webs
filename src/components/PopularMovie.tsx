@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
 import { Card } from "./Card";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 export const PopularMovie = () => {
   const [popular, setPopular] = useState([]);
   const FunctionName = async () => {
@@ -17,12 +18,14 @@ export const PopularMovie = () => {
     } catch (err: any) {
       console.log(err.message);
     }
-  
   };
   useEffect(() => {
-    FunctionName()
-    ;
-  },[]);
+    FunctionName();
+  }, []);
+  const router = useRouter();
+  const handleOnClick = (id: number) => {
+    router.push(`detail ${id}`);
+  };
   return (
     <div className="flex flex-col gap-[32px] px-[80px]">
       <div className="flex items-center justify-between ">
@@ -33,11 +36,14 @@ export const PopularMovie = () => {
         </Button>
       </div>
       <div className="grid grid-cols-5 gap-[32px] w-full">
-        {popular?.slice(0,10).map((value: any, index: number) => {
+        {popular?.slice(0, 10).map((value: any, index: number) => {
           return (
             <Card
+              jumpDetails={() => {
+                handleOnClick(value.id);
+              }}
               key={index}
-              image={`https://image.tmdb.org/t/p/w300/${value.poster_path}` }
+              image={`https://image.tmdb.org/t/p/w300/${value.poster_path}`}
               rate={value.vote_average}
               title={value.title}
             />

@@ -1,23 +1,28 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
 import { Card } from "./Card";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 export const UpcomingMovie = () => {
-  const[data,setData]=useState([])
-  const getUpcomingMovie = async ()=>{
+  const [data, setData] = useState([]);
+  const getUpcomingMovie = async () => {
     const response = await axios.get(
       "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
-    )
-    setData(response.data.results)
-  }
-  useEffect(()=>{getUpcomingMovie();
+    );
+    setData(response.data.results);
+  };
+  useEffect(() => {
+    getUpcomingMovie();
+  }, []);
 
-  },[])
-  console.log(data,"work");
-  
+  const router = useRouter();
+  const handleOnClick = (id: number) => {
+    router.push(`detail/${id}`);
+  };
+
   return (
     <div className="flex flex-col gap-[32px] px-[80px]">
       <div className="flex items-center justify-between ">
@@ -28,9 +33,12 @@ export const UpcomingMovie = () => {
         </Button>
       </div>
       <div className="grid grid-cols-5 gap-[32px] w-full">
-        {data?.slice(0,10).map((value:any, index:number) => {
+        {data?.slice(0, 10).map((value: any, index: number) => {
           return (
             <Card
+              jumpDetails={() => {
+                handleOnClick(value.id);
+              }}
               key={index}
               image={`https://image.tmdb.org/t/p/w300${value.backdrop_path}`}
               rate={value.vote_average}
@@ -38,7 +46,6 @@ export const UpcomingMovie = () => {
             />
           );
         })}
-       
       </div>
     </div>
   );

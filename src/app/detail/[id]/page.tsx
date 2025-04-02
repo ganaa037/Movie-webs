@@ -1,14 +1,10 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Link, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 export default function page() {
-  const[trailer,setTrailer]=useState([])
-  const onClickTrailer =()=>{
-    setTrailer(trailer)
-  }
   return (
     <div className="w-[1080px] ml-[180px] mr-[180px] flex flex-col gap-6 relative">
       <div className="flex justify-between">
@@ -19,9 +15,8 @@ export default function page() {
         <div className="">
           <p>rating</p>
           <div className="flex items-center">
-            
-            <Star href="" className="fill-yellow-300 h-4" />
-            
+            <Star className="fill-yellow-300 h-4" />
+
             <div className="">
               <div className="flex">
                 <p className="flex flex-row items-center">6.9</p>
@@ -47,9 +42,7 @@ export default function page() {
             alt=""
           />
           <div className=" flex absolute  items-center bottom-[28px] left-[28px] gap-3">
-         
-            <Button onClick={onClickTrailer} className="bg-white rounded-[9999px] w-10 h-10 text-black">
-            <Link href="https://www.youtube.com/"></Link>
+            <Button className="bg-white rounded-[9999px] w-10 h-10 text-black">
               <Play />
             </Button>
             <p> Watch Trailer</p>
@@ -117,4 +110,3 @@ export default function page() {
     </div>
   );
 }
-console.log("working");

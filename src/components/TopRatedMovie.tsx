@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
 import { Card } from "./Card";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 export const TopRatedMovie = () => {
   const [data, setData] = useState([]);
 
@@ -19,6 +20,10 @@ export const TopRatedMovie = () => {
     };
     fetchTopRatedMovies();
   }, []);
+  const router = useRouter();
+  const handleOnClick = (id: number) => {
+    router.push(`detail${id}`);
+  };
 
   return (
     <div className="flex flex-col gap-[32px] px-[80px]">
@@ -33,6 +38,9 @@ export const TopRatedMovie = () => {
         {data?.slice(0, 10).map((value: any, index: number) => {
           return (
             <Card
+              jumpDetails={() => {
+                handleOnClick(value.id);
+              }}
               key={index}
               image={`https://image.tmdb.org/t/p/w300/${value.backdrop_path}`}
               rate={value.vote_average}
