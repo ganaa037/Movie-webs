@@ -1,8 +1,9 @@
-import { Movie, Navbar, UpcomingMovie } from "@/components";
-
-import { PopularMovie } from "@/components/PopularMovie";
-import { TopRatedMovie } from "@/components/TopRatedMovie";
-import Image from "next/image";
+import {
+  Movie,
+  PopularMovie,
+  TopRatedMovie,
+  UpcomingMovie,
+} from "@/components";
 
 export default function Home() {
   return (

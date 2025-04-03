@@ -26,10 +26,8 @@ export const Navbar = () => {
       <div className="flex gap-3 items-center ">
         <Popover>
           <PopoverTrigger>
-            <Button className="bg-[#FFFFFF] text-[black]">
-              <ChevronDown />
-              Genre
-            </Button>
+            <ChevronDown />
+            Genre
           </PopoverTrigger>
           <PopoverContent className="w-[577px] h-[333px] flex flex-wrap">
             Place content for the popover here.
