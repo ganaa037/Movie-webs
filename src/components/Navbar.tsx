@@ -14,8 +14,6 @@ import { Search } from "lucide-react";
 
 import { ChevronDown } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-
 export const Navbar = () => {
   return (
     <div className="flex justify-around">
@@ -29,23 +27,59 @@ export const Navbar = () => {
             <ChevronDown />
             Genre
           </PopoverTrigger>
-          <PopoverContent className="w-[577px] h-[333px] flex flex-wrap">
-            Place content for the popover here.
-            <ChevronRight />
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
-            <p>Action</p>
+          <PopoverContent className="w-[577px] h-[333px] flex gap-4  flex-col">
+            <p>Place content for the popover here.</p>
+            <p className="w-full border border-gray-400"></p>
+            <div className="flex flex-wrap gap-4">
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+              <Badge
+                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                variant="outline"
+              >
+                Action
+              </Badge>
+            </div>
           </PopoverContent>
         </Popover>
 

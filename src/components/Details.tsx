@@ -5,30 +5,65 @@ import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { CastDataType, CreditDataType } from "@/lib/utils";
 export const Details = () => {
-  const [genreList, setGenreList] = useState([]);
-  const getGenrelist = async () => {
+  const [specific, setSpecific] = useState();
+  const [genre, setGenre] = useState([]);
+  const [castData, setCastData] = useState<CreditDataType>({
+    id: 1,
+    crew: [],
+    cast: [],
+  });
+  const getSpecific = async () => {
     try {
       const { data } = await axios.get(
         "https://api.themoviedb.org/3/movie/278?language=en-US&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
       );
-      console.log(data, "data");
-      setGenreList(data.genres);
+      console.log(data);
+
+      setSpecific(data);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+  const getGenre = async () => {
+    try {
+      const { data } = await axios.get(
+        "https://api.themoviedb.org/3/movie/278?language=en-US&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
+      );
+      console.log(data);
+
+      setGenre(data.genres);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+  const getCastData = async () => {
+    try {
+      const { data } = await axios.get(
+        "https://api.themoviedb.org/3/movie/278/credits?language=en-US&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
+      );
+      setCastData(data);
     } catch (err: any) {
       console.log(err.message);
     }
   };
   useEffect(() => {
-    getGenrelist();
+    getSpecific();
+    getGenre();
+    getCastData();
   }, []);
+  console.log(castData.crew);
+  const Director = castData.crew.filter((el) => el.job === "Director");
+  const Writers = castData.crew.filter((el) => el.department === "Writing");
+  const Stars = castData.crew.filter((el) => el.job === "Actor's  Assistant");
 
   return (
     <div className="w-[1080px] ml-[180px] mr-[180px] flex flex-col gap-6 relative">
       <div className="flex justify-between">
         <div>
-          <p>Wicked</p>
-          <p>2024.11.26 · PG · 2h 40m</p>
+          <p>{specific?.title}</p>
+          <p>{specific?.release_date + " " + specific?.runtime}</p>
         </div>
         <div className="">
           <p>rating</p>
@@ -47,70 +82,78 @@ export const Details = () => {
           </div>
         </div>
       </div>
-      {genreList.slice().map((value: any, index: number) => {
-        return (
-          <div key={index}>
-            <div className="flex gap-8">
-              <img
-                className="w-[290px] h-[428px] rounded-[4px]"
-                src={`https://image.tmdb.org/t/p/w300/${value.poster_path}`}
-                alt=""
-              />
-              <div className="flex relative">
-                <img
-                  className="w-[760px] h-[428px] rounded-[4px] "
-                  src={`https://image.tmdb.org/t/p/w300/${value.backdrop_path}`}
-                  alt=""
-                />
-                <div className=" flex absolute  items-center bottom-[28px] left-[28px] gap-3">
-                  <Button className="bg-white rounded-[9999px] w-10 h-10 text-black">
-                    <Play />
-                  </Button>
-                  <p> Watch Trailer</p>
-                  <span className="">2:35</span>
-                </div>
-              </div>
-            </div>
 
-            <div className="flex gap-3  ">
+      <div>
+        <div className="flex gap-8">
+          <img
+            className="w-[290px] h-[428px] rounded-[4px]"
+            src={`https://image.tmdb.org/t/p/w300${specific?.poster_path}`}
+            alt=""
+          />
+          <div className="flex relative">
+            <img
+              className="w-[760px] h-[428px] rounded-[4px]"
+              src={`https://image.tmdb.org/t/p/w300${specific?.backdrop_path}`}
+              alt=""
+            />
+            <div className=" flex absolute  items-center bottom-[28px] left-[28px] gap-3">
+              <Button className="bg-white rounded-[9999px] w-10 h-10 text-black">
+                <Play />
+              </Button>
+              <p> Watch Trailer</p>
+              <span className="">2:35</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-3  ">
+          {genre.map((value: any, index: number) => {
+            return (
               <Badge
+                key={index}
                 className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
                 variant="outline"
               >
                 {value.name}
               </Badge>
-            </div>
+            );
+          })}
+        </div>
+      </div>
+      <p>{specific?.overview}</p>
+
+      {Director.map((value: any, index: number) => {
+        return (
+          <div key={index} className="flex gap-[53px]">
+            <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
+              Director
+            </p>
+            <p>{value.name}</p>
           </div>
         );
       })}
-
-      <p>
-        Elphaba, a misunderstood young woman because of her green skin, and
-        Glinda, a popular girl, become friends at Shiz University in the Land of
-        Oz. After an encounter with the Wonderful Wizard of Oz, their friendship
-        reaches a crossroads.
-      </p>
-
-      <div className="flex gap-[53px]">
-        <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
-          Director
-        </p>
-        <p>Jon M. Chu</p>
-      </div>
       <p className="w-full border border-gray-400 "></p>
+
       <div className="flex gap-[53px]">
         <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
           Writers
         </p>
-        <p>Winnie Holzman · Dana Fox · Gregory Maguire</p>
+        {Writers.map((value: any, index: number) => {
+          return <p>{value.name}</p>;
+        })}
       </div>
+
       <p className="w-full border border-gray-400 "></p>
+
       <div className="flex gap-[53px]">
         <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
           Stars
         </p>
-        <p>Cynthia Erivo · Ariana Grande · Jeff Goldblum</p>
+        {Stars.map((value: any, index: number) => {
+          return <p key={index}>{value.name}</p>;
+        })}
       </div>
+
       <p className="w-full border border-gray-400 "></p>
     </div>
   );
