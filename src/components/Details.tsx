@@ -4,20 +4,36 @@ import { Badge } from "@/components/ui/badge";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { CastDataType, CreditDataType } from "@/lib/utils";
+
+import { axiosInstance, CastDataType, CreditDataType, CrewDataType, imageUrl } from "@/lib/utils";
+
+type specificProp = {
+  adult:boolean
+  title: string
+  release_date:string,
+  runtime: number,
+  vote_average:number,   
+  poster_path:string
+  backdrop_path:string 
+  overview: string
+}
+
 export const Details = () => {
-  const [specific, setSpecific] = useState();
+  const [specific, setSpecific] = useState<specificProp>();
   const [genre, setGenre] = useState([]);
   const [castData, setCastData] = useState<CreditDataType>({
     id: 1,
     crew: [],
     cast: [],
   });
+ 
+ 
+  
+  
   const getSpecific = async () => {
     try {
-      const { data } = await axios.get(
-        "https://api.themoviedb.org/3/movie/278?language=en-US&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
+      const { data } = await axiosInstance.get(
+        `movie/278?language=en-US`
       );
       console.log(data);
 
@@ -28,8 +44,8 @@ export const Details = () => {
   };
   const getGenre = async () => {
     try {
-      const { data } = await axios.get(
-        "https://api.themoviedb.org/3/movie/278?language=en-US&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
+      const { data } = await axiosInstance.get(
+        "movie/278?language=en-US"
       );
       console.log(data);
 
@@ -40,8 +56,8 @@ export const Details = () => {
   };
   const getCastData = async () => {
     try {
-      const { data } = await axios.get(
-        "https://api.themoviedb.org/3/movie/278/credits?language=en-US&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
+      const { data } = await axiosInstance.get(
+        "movie/278/credits?language=en-US"
       );
       setCastData(data);
     } catch (err: any) {
@@ -56,7 +72,7 @@ export const Details = () => {
   console.log(castData.crew);
   const Director = castData.crew.filter((el) => el.job === "Director");
   const Writers = castData.crew.filter((el) => el.department === "Writing");
-  const Stars = castData.crew.filter((el) => el.job === "Actor's  Assistant");
+  const Stars = castData.crew.filter((el) => el.job === "Actor's Assistant");
 
   return (
     <div className="w-[1080px] ml-[180px] mr-[180px] flex flex-col gap-6 relative">
@@ -72,7 +88,7 @@ export const Details = () => {
 
             <div className="">
               <div className="flex">
-                <p className="flex flex-row items-center">6.9</p>
+                <p className="flex flex-row items-center">{specific?.vote_average}</p>
                 <p className="text-gray-400">/10</p>
               </div>
               <div>
@@ -87,7 +103,7 @@ export const Details = () => {
         <div className="flex gap-8">
           <img
             className="w-[290px] h-[428px] rounded-[4px]"
-            src={`https://image.tmdb.org/t/p/w300${specific?.poster_path}`}
+            src={imageUrl(specific?.poster_path)}
             alt=""
           />
           <div className="flex relative">
@@ -122,28 +138,30 @@ export const Details = () => {
       </div>
       <p>{specific?.overview}</p>
 
-      {Director.map((value: any, index: number) => {
-        return (
-          <div key={index} className="flex gap-[53px]">
+      
+          <div className="flex gap-[53px]">
             <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
               Director
             </p>
-            <p>{value.name}</p>
+            {Director.map((value: any, index: number) => {
+        return (
+            <p  key={index}>{value.name}</p>
+          );
+        })}
           </div>
-        );
-      })}
-      <p className="w-full border border-gray-400 "></p>
+       
+      <p className="w-full border border-gray-400"></p>
 
       <div className="flex gap-[53px]">
         <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
           Writers
         </p>
         {Writers.map((value: any, index: number) => {
-          return <p>{value.name}</p>;
+          return <p key={index}>{value.name}</p>;
         })}
       </div>
 
-      <p className="w-full border border-gray-400 "></p>
+      <p className="w-full border border-gray-400"></p>
 
       <div className="flex gap-[53px]">
         <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">

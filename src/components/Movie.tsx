@@ -12,16 +12,17 @@ import { Play } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { get } from "http";
+import { axiosInstance, imageUrl } from "@/lib/utils";
 
 export const Movie = () => {
   const [data1, setData1] = useState([]);
 
   const FunctionName = async () => {
     try {
-      const { data } = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
+      const { data } = await axiosInstance.get(
+        "movie/now_playing?language=en-US&page=1"
       );
       setData1(data.results);
     } catch (err: any) {
@@ -40,7 +41,7 @@ export const Movie = () => {
             <CarouselItem key={i} className=" relative">
               <img
                 className=" w-full h-[600px] object-cover"
-                src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                src={imageUrl(movie.backdrop_path)}
               ></img>
               <div className="absolute top-[178px] left-[140px] text-[#FAFAFA] flex gap-4 flex-col ">
                 <div>

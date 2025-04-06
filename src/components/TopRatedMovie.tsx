@@ -4,16 +4,17 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
 import { Card } from "./Card";
-import axios from "axios";
+
 import { useRouter } from "next/navigation";
+import { axiosInstance } from "@/lib/utils";
 export const TopRatedMovie = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchTopRatedMovies = async () => {
       try {
-        const response = await axios.get(
-          "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1&api_key=d67d8bebd0f4ff345f6505c99e9d0289"
+        const response = await axiosInstance.get(
+          "movie/top_rated?language=en-US&page=1"
         );
         setData(response.data.results);
       } catch (error) {}

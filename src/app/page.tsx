@@ -7,7 +7,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="w-[1440px]">
+    <div className="w-full">
       <Movie></Movie>
       <div className="flex flex-col gap-[52px]">
         <UpcomingMovie />

@@ -1,5 +1,8 @@
 import { Details } from "@/components/Details";
 
-export default function page() {
+;
+
+export default function page({}) {
+
   return <Details />;
 }

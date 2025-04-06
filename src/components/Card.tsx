@@ -6,7 +6,7 @@ type Props = {
   image: string;
   title: string;
   rate: string;
-  jumpDetails: () => void;
+  jumpDetails : () => void;
 };
 
 export const Card = ({ image, rate, title, jumpDetails }: Props) => {

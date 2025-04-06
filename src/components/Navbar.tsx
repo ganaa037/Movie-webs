@@ -36,49 +36,10 @@ export const Navbar = () => {
                 variant="outline"
               >
                 Action
+                <ChevronRight />
               </Badge>
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-              </Badge>
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-              </Badge>
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-              </Badge>
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-              </Badge>
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-              </Badge>
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-              </Badge>
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-              </Badge>
+            
+             
             </div>
           </PopoverContent>
         </Popover>
