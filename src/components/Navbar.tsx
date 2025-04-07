@@ -1,3 +1,4 @@
+"use client";
 import { Moon } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 
@@ -8,13 +9,23 @@ import {
 } from "@/components/ui/popover";
 
 import { Badge } from "@/components/ui/badge";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { TbMovie } from "react-icons/tb";
 import { Search } from "lucide-react";
 
 import { ChevronDown } from "lucide-react";
 
+import { axiosInstance } from "@/lib/utils";
+
 export const Navbar = () => {
+  const [genreList, setGenreList] = useState([]);
+  useEffect(() => {
+    axiosInstance
+      .get("genre/movie/list?language=en")
+      .then((res) => setGenreList(res.data.genres));
+  }, []);
+  console.log(setGenreList, "kk");
+
   return (
     <div className="flex justify-around">
       <div className="flex items-center gap-2 text-blue-900">
@@ -31,15 +42,18 @@ export const Navbar = () => {
             <p>Place content for the popover here.</p>
             <p className="w-full border border-gray-400"></p>
             <div className="flex flex-wrap gap-4">
-              <Badge
-                className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
-                variant="outline"
-              >
-                Action
-                <ChevronRight />
-              </Badge>
-            
-             
+              {genreList.map((genre, index) => {
+                return (
+                  <Badge
+                    key={index}
+                    className="bg-[#FFFFFF] text-[black] w-[77px] h-5 text-[12px] px-[10px] py-[2px] border"
+                    variant="outline"
+                  >
+                    {genre?.name}
+                    <ChevronRight />
+                  </Badge>
+                );
+              })}
             </div>
           </PopoverContent>
         </Popover>

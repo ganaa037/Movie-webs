@@ -5,20 +5,28 @@ import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
-import { axiosInstance, CastDataType, CreditDataType, CrewDataType, imageUrl } from "@/lib/utils";
+import {
+  axiosInstance,
+  CastDataType,
+  CreditDataType,
+  CrewDataType,
+  imageUrl,
+} from "@/lib/utils";
+import { useParams } from "next/navigation";
 
 type specificProp = {
-  adult:boolean
-  title: string
-  release_date:string,
-  runtime: number,
-  vote_average:number,   
-  poster_path:string
-  backdrop_path:string 
-  overview: string
-}
+  adult: boolean;
+  title: string;
+  release_date: string;
+  runtime: number;
+  vote_average: number;
+  poster_path: string;
+  backdrop_path: string;
+  overview: string;
+};
 
 export const Details = () => {
+  const { id } = useParams();
   const [specific, setSpecific] = useState<specificProp>();
   const [genre, setGenre] = useState([]);
   const [castData, setCastData] = useState<CreditDataType>({
@@ -26,15 +34,10 @@ export const Details = () => {
     crew: [],
     cast: [],
   });
- 
- 
-  
-  
+
   const getSpecific = async () => {
     try {
-      const { data } = await axiosInstance.get(
-        `movie/278?language=en-US`
-      );
+      const { data } = await axiosInstance.get(`movie/${id}?language=en-US`);
       console.log(data);
 
       setSpecific(data);
@@ -44,9 +47,7 @@ export const Details = () => {
   };
   const getGenre = async () => {
     try {
-      const { data } = await axiosInstance.get(
-        "movie/278?language=en-US"
-      );
+      const { data } = await axiosInstance.get(`movie/${id}?language=en-US`);
       console.log(data);
 
       setGenre(data.genres);
@@ -57,7 +58,7 @@ export const Details = () => {
   const getCastData = async () => {
     try {
       const { data } = await axiosInstance.get(
-        "movie/278/credits?language=en-US"
+        `movie/${id}/credits?language=en-US`
       );
       setCastData(data);
     } catch (err: any) {
@@ -72,7 +73,9 @@ export const Details = () => {
   console.log(castData.crew);
   const Director = castData.crew.filter((el) => el.job === "Director");
   const Writers = castData.crew.filter((el) => el.department === "Writing");
-  const Stars = castData.crew.filter((el) => el.job === "Actor's Assistant");
+  const Stars = castData.crew.filter(
+    (el) => el.known_for_department === "Acting"
+  );
 
   return (
     <div className="w-[1080px] ml-[180px] mr-[180px] flex flex-col gap-6 relative">
@@ -88,7 +91,9 @@ export const Details = () => {
 
             <div className="">
               <div className="flex">
-                <p className="flex flex-row items-center">{specific?.vote_average}</p>
+                <p className="flex flex-row items-center">
+                  {specific?.vote_average}
+                </p>
                 <p className="text-gray-400">/10</p>
               </div>
               <div>
@@ -138,18 +143,15 @@ export const Details = () => {
       </div>
       <p>{specific?.overview}</p>
 
-      
-          <div className="flex gap-[53px]">
-            <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
-              Director
-            </p>
-            {Director.map((value: any, index: number) => {
-        return (
-            <p  key={index}>{value.name}</p>
-          );
+      <div className="flex gap-[53px]">
+        <p className="text-[#09090B] text-4 leading-7 font-bold w-[64px]">
+          Director
+        </p>
+        {Director.map((value: any, index: number) => {
+          return <p key={index}>{value.name}</p>;
         })}
-          </div>
-       
+      </div>
+
       <p className="w-full border border-gray-400"></p>
 
       <div className="flex gap-[53px]">
