@@ -16,9 +16,13 @@ import { Search } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 
 import { axiosInstance } from "@/lib/utils";
+type genres ={
+  name:string
+  id: string
+}
 
 export const Navbar = () => {
-  const [genreList, setGenreList] = useState([]);
+  const [genreList, setGenreList] = useState<genres[]>([]);
   useEffect(() => {
     axiosInstance
       .get("genre/movie/list?language=en")
