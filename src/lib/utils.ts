@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 export const imageUrl = (path?: string) => {
-  return `https://image.tmdb.org/t/p/w300${path}`;
+  return `https://image.tmdb.org/t/p/original${path}`;
 };
 export const axiosInstance = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
